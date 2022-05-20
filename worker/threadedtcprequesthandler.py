@@ -28,3 +28,4 @@ class ThreadedTCPRequestHandler(BaseRequestHandler):
         data = self.recvAllData()
         print(data)
         print(len(data))
+        self.request.send(b"Hello world")
