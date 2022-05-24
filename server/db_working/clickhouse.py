@@ -1,5 +1,7 @@
 from clickhouse_driver import Client
 from configparser import ConfigParser
+from projectConfigParser import ProjectConfigParser
+from errorListParser import ErrorListParser
 
 class ClickhouseDB:
     def __init__(self, filename) -> None:
@@ -9,11 +11,11 @@ class ClickhouseDB:
         self.port = int(self.conf["db"]["db_port"])
         self.client = Client(host=self.host)
 
-    def init_db():
+    def init_db(self, projectConfig: ProjectConfigParser):
         pass
 
-    def insert():
+    def insert(self, projectConfig: ProjectConfigParser):
         pass
 
-    def archive():
+    def archive(self, projectConfig: ProjectConfigParser):
         pass

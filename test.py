@@ -1,6 +1,6 @@
-from configparser import ConfigParser
+# from configparser import ConfigParser
 # from server.db_working.functionMultipluer import standard
-from server.webserver.flaskAppWrapper import FlaskAppWrapper
+# from server.webserver.flaskAppWrapper import FlaskAppWrapper
 import importlib
 import sys
 
@@ -13,5 +13,8 @@ fun = importlib.import_module("server.db_working.functionMultipluer", ".")
 # print(load.exec_module(fun))
 # print(fun(15))
 cont = "standard"
+funct = getattr(sys.modules["server.db_working.functionMultipluer"], cont)
 print(getattr(sys.modules["server.db_working.functionMultipluer"], cont)(25))
+print(funct(25))
 # print(fun(25))
+

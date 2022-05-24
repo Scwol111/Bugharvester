@@ -1,9 +1,0 @@
-setup.py
-bugHarvesterWebserver/__init__.py
-bugHarvesterWebserver/flaskAppWrapper.py
-bugHarvesterWebserver/webserver.py
-bugHarvesterWebserver.egg-info/PKG-INFO
-bugHarvesterWebserver.egg-info/SOURCES.txt
-bugHarvesterWebserver.egg-info/dependency_links.txt
-bugHarvesterWebserver.egg-info/requires.txt
-bugHarvesterWebserver.egg-info/top_level.txt
