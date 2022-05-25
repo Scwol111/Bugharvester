@@ -5,7 +5,7 @@ class WebserverConfig:
     def __init__(self, filename) -> None:
         self.conf = ConfigParser()
         self.conf.read(filename)
-        if (self.conf["worker"]["host"] != ''):
+        if (self.conf["webserver"]["host"] != ''):
             self.host = self.conf["webserver"]["host"]
         else:
             self.host = self.conf["default"]["host"]

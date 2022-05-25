@@ -36710,21 +36710,13 @@ a.u-link.u-text-hover-grey-90:hover {
 .u-footer .u-social-icons-1 {
   height: 23px;
   min-height: 16px;
-  width: 89px;
-  min-width: 68px;
+  width: 23px;
+  min-width: 16px;
   white-space: nowrap;
   margin: -25px 0 48px auto;
 }
 
 .u-footer .u-icon-1 {
-  color: rgb(59, 89, 152) !important;
-}
-
-.u-footer .u-icon-2 {
-  color: rgb(85, 172, 238) !important;
-}
-
-.u-footer .u-icon-3 {
   height: 100%;
   color: rgb(0, 137, 203) !important;
 }
