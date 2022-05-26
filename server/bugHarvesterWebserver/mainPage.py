@@ -10,17 +10,17 @@ import random
 import json
 
 def sortStatus(x):
-    status = ["../static/images/ok-64.png", "../static/images/warning-5-64.png", "../static/images/warning-64.png"]
-    if (x[1] == status[0]):
+    status = ["/static/images/ok-64.png", "/static/images/warning-5-64.png", "/static/images/warning-64.png", "/static/images/ok-16.png", "/static/images/warning-5-16.png", "/static/images/warning-16.png"]
+    if (x[1] == status[0] or x[1] == status[3]):
         return 0
-    elif (x[1] == status[1]):
+    elif (x[1] == status[1] or x[1] == status[4]):
         return 1
     return 2
 
 def generateProjectList():
     projects = list()
     for i in range(15):
-        projects.append(("project_" + str(i), random.choice(["../static/images/ok-64.png", "../static/images/warning-5-64.png", "../static/images/warning-64.png"])))
+        projects.append(("project_" + str(i), random.choice(["/static/images/ok-64.png", "/static/images/warning-5-64.png", "/static/images/warning-64.png"])))
     return projects
 
 def generateErrorsList():
