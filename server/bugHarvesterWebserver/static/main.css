@@ -3,7 +3,8 @@
 }
 
 .u-section-1 .u-table-1 {
-  margin: 0 auto 60px 0;
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .u-block-a942-46 {
@@ -29,11 +30,4 @@
 
 .u-block-a942-35 {
   background-image: none;
-}
-
-@media (max-width: 1399px) {
-  .u-section-1 .u-table-1 {
-    margin-right: initial;
-    margin-left: initial;
-  }
 }

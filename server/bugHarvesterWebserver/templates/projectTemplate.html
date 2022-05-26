@@ -6,14 +6,15 @@
   <meta charset="utf-8">
   <meta name="keywords" content="">
   <meta name="description" content="">
-  <title>{{ project['Name'] }}</title>
+  <title>projectTemplate</title>
   <link rel="stylesheet" href="/static/nicepage.css" media="screen">
   <link rel="stylesheet" href="/static/projectTemplate.css" media="screen">
-  <script class="u-script" type="text/javascript" src="/static/nicepage.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="/static/jquery.js" defer=""></script>
   <script class="u-script" type="text/javascript" src="/static/nicepage.js" defer=""></script>
   <meta name="generator" content="Nicepage 4.11.3, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+
 
 
 
@@ -37,7 +38,7 @@
   <header class="u-clearfix u-header u-header" id="sec-9812">
     <div class="u-clearfix u-sheet u-sheet-1">
       <a href="{{ 'http://' + request.host }}" class="u-image u-logo u-image-1" data-image-width="400"
-        data-image-height="92">
+        data-image-height="92" title="Главная">
         <img src="/static/images/logo_left.png" class="u-logo-image u-logo-image-1">
       </a>
       <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
@@ -79,7 +80,7 @@
                     href="{{ 'http://' + request.host + '/' }}">Главная</a>
                 </li>
                 <li class="u-nav-item"><a class="u-button-style u-nav-link"
-                    href="{{ 'http://' + request.host + '/' + 'contacts' }}">Контакты</a>
+                    href="{{ 'http://' + request.host + '/contacts' }}">Контакты</a>
                 </li>
               </ul>
             </div>
@@ -91,7 +92,7 @@
     </div>
   </header>
   <section class="u-clearfix u-section-1" id="sec-e265">
-    <div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
+    <div class="u-clearfix u-sheet u-sheet-1">
       <h3 class="u-align-center u-text u-text-default u-text-1">{{ project['Name'] }}</h3>
       <h4 class="u-align-left u-text u-text-default u-text-2">Версия проекта:</h4>
       <h4 class="u-align-left u-text u-text-default u-text-3">{{ project['version'] }}</h4>
@@ -100,8 +101,55 @@
       <p class="u-align-left u-text u-text-6">{{ project['Description'] }}</p>
     </div>
   </section>
-  {% if count['errors'] + count['warnings'] > 0 %}
-  <section class="u-align-center u-clearfix u-section-2" id="sec-032a">
+  <section class="u-clearfix u-section-2" id="sec-b82f">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-gutter-0 u-layout">
+          <div class="u-layout-col">
+            <div class="u-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-1">
+              <div class="u-container-layout u-container-layout-1">
+                <h4 class="u-text u-text-default u-text-1">Общие рекомендации</h4>
+                <p class="u-text u-text-default u-text-2">{{ recomendation }}</p>
+              </div>
+            </div>
+            <div class="u-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-2">
+              <div class="u-container-layout u-valign-top u-container-layout-2">
+                <h4 class="u-text u-text-default u-text-3">Ошибки, приоритетные для исправления:</h4>
+                <ul>
+                  {% for i in preparedErrors %}
+                  <!-- <li> -->
+                    <a href="{{ '/projects/' + project['Name'] + '/' + i[0] }}">
+                      {{ i[0] }}
+                    </a>
+                    <img src="{{ i[1] }}">
+                    <br>
+                  <!-- </li> -->
+                  {% endfor %}
+                </ul>
+                <!-- {% for i in preparedErrors %}
+                  <li>
+                  <p class="u-text u-text-default u-text-4">
+                    <a href="{{ '/projects/' + project['Name'] + '/' + i[0] }}">
+                      {{ i[0] }}
+                    </a>
+                  </p>
+                  </li>
+                {% endfor %} -->
+                <!-- <p class="u-text u-text-default u-text-4">Пример текста. Кликните, чтобы выбрать элемент "Текст".</p> -->
+              </div>
+            </div>
+            <div class="u-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-3">
+              <div class="u-container-layout u-valign-top u-container-layout-3">
+                <h4 class="u-text u-text-default u-text-5">Трассировка стека частых ошибок</h4>
+                <p class="u-text u-text-default u-text-6">Пример текста. Кликните, чтобы выбрать элемент "Текст".</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="u-align-center u-clearfix u-section-3" id="sec-032a">
     <div
       class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-valign-middle-xxl u-sheet-1">
       <div class="u-expanded-width u-list u-list-1">
@@ -110,7 +158,7 @@
             class="u-align-center u-container-style u-custom-item u-list-item u-palette-2-light-2 u-repeater-item u-shape-rectangle u-list-item-1">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <h1 class="u-align-center u-text u-title u-text-1" data-animation-name="counter"
-                data-animation-event="scroll" data-animation-duration="3000">{{ count['errors'] }}</h1>
+                data-animation-event="scroll" data-animation-duration="2000">{{ count['errors'] }}</h1>
               <p class="u-text u-text-2">Количество превышений<br>
               </p>
             </div>
@@ -119,7 +167,7 @@
             class="u-align-center u-container-style u-custom-item u-list-item u-palette-3-light-2 u-repeater-item u-list-item-2">
             <div class="u-container-layout u-similar-container u-container-layout-2">
               <h1 class="u-align-center u-text u-title u-text-3" data-animation-name="counter"
-                data-animation-event="scroll" data-animation-duration="3000">{{ count['warnings'] }}</h1>
+                data-animation-event="scroll" data-animation-duration="2000">{{ count['warnings'] }}</h1>
               <p class="u-text u-text-4">Количество предупреждений</p>
             </div>
           </div>
@@ -127,8 +175,7 @@
       </div>
     </div>
   </section>
-  {% endif %}
-  <section class="u-align-center u-clearfix u-section-3" id="sec-5871">
+  <section class="u-align-center u-clearfix u-section-4" id="sec-5871">
     <div class="u-clearfix u-sheet u-sheet-1">
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
         <table class="u-table-entity u-table-entity-1">
@@ -159,7 +206,7 @@
               <td class="u-border-1 u-border-grey-30 u-table-cell">{{ er[1] }}</td>
               <td class="u-border-1 u-border-grey-30 u-table-cell">{{ er[2] }}</td>
               <td class="u-border-1 u-border-grey-30 u-table-cell">{{ er[3] }}</td>
-              <td class="u-border-1 u-border-grey-30 u-table-cell">
+              <td class="u-border-1 u-border-grey-30 u-table-cell" align="center">
                 <img src="{{ er[4] }}">
               </td>
             </tr>
@@ -174,7 +221,7 @@
   <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4231">
     <div class="u-clearfix u-sheet u-valign-top-xs u-sheet-1">
       <a href="{{ 'http://' + request.host }}" class="u-image u-logo u-image-1" data-image-width="400"
-        data-image-height="92">
+        data-image-height="92" title="{{ 'http://' + request.host }}">
         <img src="/static/images/logo_left-removebg-preview1.png" class="u-logo-image u-logo-image-1">
       </a>
       <p class="u-text u-text-1">Программное обеспечение создано для ВКР КНИТУ-КАИ</p>

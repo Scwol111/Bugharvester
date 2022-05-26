@@ -9,6 +9,14 @@ from collections import Counter
 import random
 import json
 
+def sortStatus(x):
+    status = ["../static/images/ok-64.png", "../static/images/warning-5-64.png", "../static/images/warning-64.png"]
+    if (x[1] == status[0]):
+        return 0
+    elif (x[1] == status[1]):
+        return 1
+    return 2
+
 def generateProjectList():
     projects = list()
     for i in range(15):
@@ -17,25 +25,36 @@ def generateProjectList():
 
 def generateErrorsList():
     errors = list()
+    mass = {
+        "critical": 25, 
+        "higt": 5, 
+        "low": 1, 
+        "cosmetic": 0.25
+    }
     with open("C:\\Users\\Nikita\\Desktop\\diplom\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
         data = json.load(file)
     err = 0
     warn = 0
+    preparedErrors = []
     for i in data:
-        count = random.randint(0, 50)
+        count = random.randint(0, 15)
         # count = 0
-        error_mass = random.choice([25, 5, 1, 0.25]) * count
+        error_mass = mass[data[i]["criticaly"]] * count
         tmp = error_mass / 50
-        if (tmp >= 1):
-            img = "../static/images/warning-64.png"
+        if (tmp >= 0.75):
+            img = "/static/images/warning-64.png"
             err += 1
-        elif (tmp > 0.75):
-            img = "../static/images/warning-5-64.png"
+            preparedErrors.append((i, img.replace("64", "16")))
+        elif (tmp > 0.35):
+            img = "/static/images/warning-5-64.png"
             warn += 1
+            preparedErrors.append((i, img.replace("64", "16")))
         else:
             img = "../static/images/ok-64.png"
-        errors.append((i, data[i], count, error_mass, img))
-    return errors, {"errors": err, "warnings": warn}
+        print(preparedErrors[-1])
+        errors.append((i, data[i]["description"], count, error_mass, img))
+    preparedErrors.sort(key=sortStatus, reverse=True)
+    return errors, {"errors": err, "warnings": warn}, preparedErrors
 
 def generateProjectInfo(projectName: str):
     data = dict()
@@ -63,7 +82,9 @@ def pageNotFound(e):
 
 @app.route('/main')
 def mainFunction():
-    return render_template("main.html", login="username", projects=generateProjectList())
+    prjct = generateProjectList()
+    prjct.sort(key=sortStatus)
+    return render_template("main.html", login="username", projects=prjct)
 
 @app.route('/contacts')
 def contacFunction():
@@ -72,16 +93,28 @@ def contacFunction():
 # @app.route('/projects', defaults={'req_path': ''})
 @app.route('/projects/<req_path>')
 def projects(req_path: str):
-    print("PROJECTS")
-    err, cont = generateErrorsList()
+    err, cont, preparedErrors = generateErrorsList()
     err.sort(key=lambda x: x[3], reverse=True)
-    return render_template("projectTemplate.html", login="username", errors=err, project=generateProjectInfo(req_path), count = cont)
+    if (cont["errors"] > 0):
+        recomendation = "Необходима новая версия с исправленными ошибками"
+    elif (cont["warnings"] > 0):
+        recomendation = "Неободимо исправить некоторые ошибки"
+    else:
+        recomendation = "С проектом все в порядке. Так держать!"
+    return render_template("projectTemplate.html", login="username", errors=err, project=generateProjectInfo(req_path), count=cont, recomendation=recomendation, preparedErrors=preparedErrors)
 
 @app.route('/projects/<req_path>/<errorType>')
 def errors(req_path: str, errorType: str):
     err, trace = generateReportsList()
     con = Counter(trace).most_common(1)[0][0]
-    return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(req_path), errorList = err, errorType = errorType, mostCommonTraceback = con)
+    with open("C:\\Users\\Nikita\\Desktop\\diplom\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+    error = {
+        'type': errorType,
+        "solve": data[errorType]["solve"],
+        "reason": data[errorType]["reason"]
+    }
+    return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(req_path), errorList = err, error = error, mostCommonTraceback = con)
 
 @app.route('/projects/<req_path>/<errorType>/<reportId>/dump')
 def download(req_path: str, errorType: str, reportId: str):
@@ -92,7 +125,9 @@ def download(req_path: str, errorType: str, reportId: str):
 def indexFunction(req_path: str):
     print(req_path)
     if (req_path == ""):
-        return render_template("index.html", login="username", projects=generateProjectList())
+        prjct = generateProjectList()
+        prjct.sort(key=sortStatus, reverse=True)
+        return render_template("index.html", login="username", projects=prjct)
     if (req_path.find(".html") != -1):
         return redirect(req_path.replace(".html", "").lower())
     abort(404)

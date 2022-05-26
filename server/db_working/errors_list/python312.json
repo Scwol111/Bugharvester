@@ -1,39 +1,224 @@
 {
-    "AssertionError": "Raised when an assert statement fails.",
-    "AttributeError": "Raised when attribute assignment or reference fails.",
-    "EOFError": "Raised when the input() function hits end-of-file condition.",
-    "FloatingPointError": "Raised when a floating point operation fails.",
-    "GeneratorExit": "Raise when a generator's close() method is called.",
-    "ImportError": "Raised when the imported module is not found.",
-    "IndexError": "Raised when the index of a sequence is out of range.",
-    "KeyError": "Raised when a key is not found in a dictionary.",
-    "KeyboardInterrupt": "Raised when the user hits the interrupt key (Ctrl+C or Delete).",
-    "MemoryError": "Raised when an operation runs out of memory.",
-    "NameError": "Raised when a variable is not found in local or global scope.",
-    "NotImplementedError": "Raised by abstract methods.",
-    "OSError": "Raised when system operation causes system related error.",
-    "OverflowError": "Raised when the result of an arithmetic operation is too large to be represented.",
-    "ReferenceError": "Raised when a weak reference proxy is used to access a garbage collected referent.",
-    "RuntimeError": "Raised when an error does not fall under any other category.",
-    "StopIteration": "Raised by next() function to indicate that there is no further item to be returned by iterator.",
-    "SyntaxError": "Raised by parser when syntax error is encountered.",
-    "IndentationError": "Raised when there is incorrect indentation.",
-    "TabError": "Raised when indentation consists of inconsistent tabs and spaces.",
-    "SystemError": "Raised when interpreter detects internal error.",
-    "SystemExit": "Raised by sys.exit() function.",
-    "TypeError": "Raised when a function or operation is applied to an object of incorrect type.",
-    "UnboundLocalError": "Raised when a reference is made to a local variable in a function or method, but no value has been bound to that variable.",
-    "UnicodeError": "Raised when a Unicode-related encoding or decoding error occurs.",
-    "UnicodeEncodeError": "Raised when a Unicode-related error occurs during encoding.",
-    "UnicodeDecodeError": "Raised when a Unicode-related error occurs during decoding.",
-    "UnicodeTranslateError": "Raised when a Unicode-related error occurs during translating.",
-    "ValueError": "Raised when a function gets an argument of correct type but improper value.",
-    "ZeroDivisionError": "Raised when the second operand of division or modulo operation is zero.",
-    "BaseException": "The base class for all built-in exceptions",
-    "ArithmeticError": "Raised for various arithmetic errors",
-    "BufferError": "Raised when a buffer related operation cannot be performed.",
-    "LookupError": "Raised when a key or index used on a mapping or sequence is invalid",
-    "ModuleNotFoundError": "Raised by import when a module could not be located. It is also raised when None is found in sys.modules.",
-    "RecursionError": "Raised when the interpreter detects that the maximum recursion depth (see sys.getrecursionlimit()) is exceeded.",
-    "StopAsyncIteration": "Must be raised by __anext__() method of an asynchronous iterator object to stop the iteration."
+    "AssertionError": {
+        "description": "Raised when an assert statement fails.",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "AttributeError": {
+        "description": "Raised when attribute assignment or reference fails.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "EOFError": {
+        "description": "Raised when the input() function hits end-of-file condition.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "FloatingPointError": {
+        "description": "Raised when a floating point operation fails.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "GeneratorExit": {
+        "description": "Raise when a generator's close() method is called.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ImportError": {
+        "description": "Raised when the imported module is not found.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "IndexError": {
+        "description": "Raised when the index of a sequence is out of range.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "KeyError": {
+        "description": "Raised when a key is not found in a dictionary.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "KeyboardInterrupt": {
+        "description": "Raised when the user hits the interrupt key (Ctrl+C or Delete).",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "MemoryError": {
+        "description": "Raised when an operation runs out of memory.",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "NameError": {
+        "description": "Raised when a variable is not found in local or global scope.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "NotImplementedError": {
+        "description": "Raised by abstract methods.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "OSError": {
+        "description": "Raised when system operation causes system related error.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "OverflowError": {
+        "description": "Raised when the result of an arithmetic operation is too large to be represented.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ReferenceError": {
+        "description": "Raised when a weak reference proxy is used to access a garbage collected referent.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "RuntimeError": {
+        "description": "Raised when an error does not fall under any other category.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "StopIteration": {
+        "description": "Raised by next() function to indicate that there is no further item to be returned by iterator.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "SyntaxError": {
+        "description": "Raised by parser when syntax error is encountered.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "IndentationError": {
+        "description": "Raised when there is incorrect indentation.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "TabError": {
+        "description": "Raised when indentation consists of inconsistent tabs and spaces.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "SystemError": {
+        "description": "Raised when interpreter detects internal error.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "SystemExit": {
+        "description": "Raised by sys.exit() function.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "TypeError": {
+        "description": "Raised when a function or operation is applied to an object of incorrect type.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "UnboundLocalError": {
+        "description": "Raised when a reference is made to a local variable in a function or method, but no value has been bound to that variable.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "UnicodeError": {
+        "description": "Raised when a Unicode-related encoding or decoding error occurs.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "UnicodeEncodeError": {
+        "description": "Raised when a Unicode-related error occurs during encoding.",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "UnicodeDecodeError": {
+        "description": "Raised when a Unicode-related error occurs during decoding.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "UnicodeTranslateError": {
+        "description": "Raised when a Unicode-related error occurs during translating.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ValueError": {
+        "description": "Raised when a function gets an argument of correct type but improper value.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ZeroDivisionError": {
+        "description": "Raised when the second operand of division or modulo operation is zero.",
+        "criticaly": "low",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "BaseException": {
+        "description": "The base class for all built-in exceptions",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ArithmeticError": {
+        "description": "Raised for various arithmetic errors",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "BufferError": {
+        "description": "Raised when a buffer related operation cannot be performed.",
+        "criticaly": "higt",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "LookupError": {
+        "description": "Raised when a key or index used on a mapping or sequence is invalid",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "ModuleNotFoundError": {
+        "description": "Raised by import when a module could not be located. It is also raised when None is found in sys.modules.",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "RecursionError": {
+        "description": "Raised when the interpreter detects that the maximum recursion depth (see sys.getrecursionlimit()) is exceeded.",
+        "criticaly": "cosmetic",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    },
+    "StopAsyncIteration": {
+        "description": "Must be raised by __anext__() method of an asynchronous iterator object to stop the iteration.",
+        "criticaly": "critical",
+        "reason": "you trying programming",
+        "solve": "turn off computer"
+    }
 }
