@@ -1,2 +1,4 @@
+cd server
 $env:BUGHARVESTER_FOLDER = pwd
 $env:FLASK_ENV = "development"
+python ./testServer.py

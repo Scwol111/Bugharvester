@@ -56,8 +56,8 @@
     "MemoryError": {
         "description": "Raised when an operation runs out of memory.",
         "criticaly": "critical",
-        "reason": "you trying programming",
-        "solve": "turn off computer"
+        "reason": "Programm trying take memory out of OS given",
+        "solve": "Check different arrays or big memory structures"
     },
     "NameError": {
         "description": "Raised when a variable is not found in local or global scope.",

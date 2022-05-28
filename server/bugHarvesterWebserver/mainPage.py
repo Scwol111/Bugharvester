@@ -3,7 +3,7 @@ from itertools import count
 from bugHarvesterWebserver import app
 from flask import render_template, abort, redirect, request, send_from_directory ,send_file
 from os.path import isfile
-from datetime import datetime
+from datetime import datetime, timedelta
 from uuid import uuid4
 from collections import Counter
 import random
@@ -60,8 +60,8 @@ def generateProjectInfo(projectName: str):
     data = dict()
     data["Name"] = projectName
     data["version"] = "0.1.25"
-    data["analysTime"] = str(datetime.now())[:19]
-    data["Description"] = "With is test project"
+    data["analysTime"] = str(datetime.now() - timedelta(days=30))[:19]
+    data["Description"] = "This is test project " + data["Name"]
     return data
 
 def generateReportsList():
@@ -70,7 +70,7 @@ def generateReportsList():
     for i in range(20):
         tmp = dict()
         tmp["id"] = uuid4().hex
-        tmp["date"] = str(datetime.now())[:19]
+        tmp["date"] = str(datetime.now() - timedelta(days=30))[:19]
         tmp["traceback"] = "Traceback is real " + str(random.randint(0, 5))
         reports.append(tmp)
         tracebacks.append(tmp["traceback"])

@@ -2,6 +2,9 @@ from observerConfig import ObserverConfig
 import socket
 import os
 
+class Observer:
+    pass
+
 def main():
     cfg = ObserverConfig(os.getenv("BUGHARVESTER_FOLDER") + "/bugHarvester-observer.cfg")
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
