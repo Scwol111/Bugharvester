@@ -1,7 +1,7 @@
-from socketlistener import Server
+from worker.socketlistener import Server
 from configparser import ConfigParser
 from pyfiglet import Figlet
-from workerCFG import WorkerCFG
+from worker.workerCFG import WorkerCFG
 import os
 
 def main():

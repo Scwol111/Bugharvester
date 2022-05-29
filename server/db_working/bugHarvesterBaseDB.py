@@ -1,0 +1,2 @@
+class BugHarvesterBaseDB:
+    pass

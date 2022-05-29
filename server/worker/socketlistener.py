@@ -1,4 +1,4 @@
-from serverqueue import Queue
+from worker.serverqueue import Queue
 import time
 import socket
 import signal

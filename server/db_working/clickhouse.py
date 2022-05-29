@@ -1,9 +1,10 @@
 from clickhouse_driver import Client
 from configparser import ConfigParser
-from projectConfigParser import ProjectConfigParser
-from errorListParser import ErrorListParser
+from db_working.projectConfigParser import ProjectConfigParser
+from db_working.errorListParser import ErrorListParser
+from db_working.bugHarvesterBaseDB import BugHarvesterBaseDB
 
-class ClickhouseDB:
+class BugHarvesterClickhouseDB(BugHarvesterBaseDB):
     def __init__(self, filename) -> None:
         self.conf = ConfigParser()
         self.conf.read(filename)
@@ -18,4 +19,16 @@ class ClickhouseDB:
         pass
 
     def archive(self, projectConfig: ProjectConfigParser):
+        pass
+
+    def getProjectList():
+        pass
+
+    def getErrorList():
+        pass
+
+    def getProjectInfo():
+        pass
+
+    def getReportList():
         pass

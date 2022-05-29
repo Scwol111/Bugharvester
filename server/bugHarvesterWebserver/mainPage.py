@@ -90,9 +90,9 @@ def mainFunction():
 def contacFunction():
     return render_template("Contacts.html", login="username")
 
-# @app.route('/projects', defaults={'req_path': ''})
-@app.route('/projects/<req_path>')
-def projects(req_path: str):
+# @app.route('/projects', defaults={'projectName': ''})
+@app.route('/projects/<projectName>')
+def projects(projectName: str):
     err, cont, preparedErrors = generateErrorsList()
     err.sort(key=lambda x: x[3], reverse=True)
     if (cont["errors"] > 0):
@@ -101,10 +101,10 @@ def projects(req_path: str):
         recomendation = "Неободимо исправить некоторые ошибки"
     else:
         recomendation = "С проектом все в порядке. Так держать!"
-    return render_template("projectTemplate.html", login="username", errors=err, project=generateProjectInfo(req_path), count=cont, recomendation=recomendation, preparedErrors=preparedErrors)
+    return render_template("projectTemplate.html", login="username", errors=err, project=generateProjectInfo(projectName), count=cont, recomendation=recomendation, preparedErrors=preparedErrors)
 
-@app.route('/projects/<req_path>/<errorType>')
-def errors(req_path: str, errorType: str):
+@app.route('/projects/<projectName>/<errorType>')
+def errors(projectName: str, errorType: str):
     err, trace = generateReportsList()
     con = Counter(trace).most_common(1)[0][0]
     with open("C:\\Users\\Nikita\\Desktop\\diplom\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
@@ -114,21 +114,31 @@ def errors(req_path: str, errorType: str):
         "solve": data[errorType]["solve"],
         "reason": data[errorType]["reason"]
     }
-    return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(req_path), errorList = err, error = error, mostCommonTraceback = con)
+    return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(projectName), errorList = err, error = error, mostCommonTraceback = con)
 
-@app.route('/projects/<req_path>/<errorType>/<reportId>/dump')
-def download(req_path: str, errorType: str, reportId: str):
+@app.route('/projects/<projectName>/<errorType>/<reportId>/dump')
+def download(projectName: str, errorType: str, reportId: str):
     return send_from_directory("C:\\Users\\Nikita\\Desktop\\diplom\\server\\bugHarvesterWebserver", "test_dump.txt", as_attachment=True)
 
-@app.route('/', defaults={'req_path': ''})
-@app.route('/<path:req_path>')
-def indexFunction(req_path: str):
-    print(req_path)
-    if (req_path == ""):
-        prjct = generateProjectList()
-        prjct.sort(key=sortStatus, reverse=True)
-        return render_template("index.html", login="username", projects=prjct)
-    if (req_path.find(".html") != -1):
-        return redirect(req_path.replace(".html", "").lower())
-    abort(404)
+@app.route('/api/<projectName>/addReport', methods=["POST"])
+def addReport():
+    pass
+
+@app.route('/api/errors', methods=['POST', 'DELETE', 'UPDATE'])
+def errorApiWork():
+    pass
+
+# @app.route('/', defaults={'projectName': ''})
+# @app.route('/<projectName>')
+@app.route("/")
+def indexFunction():
+    prjct = sorted(generateProjectList(), key=sortStatus, reverse=True)
+    return render_template("index.html", login="username", projects=prjct)
+    # if (projectName == ""):
+    #     prjct = generateProjectList()
+    #     prjct.sort(key=sortStatus, reverse=True)
+    #     return render_template("index.html", login="username", projects=prjct)
+    # if (projectName.find(".html") != -1):
+    #     return redirect(projectName.replace(".html", "").lower())
+    # abort(404)
 

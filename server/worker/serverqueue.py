@@ -1,5 +1,5 @@
 import threading
-from threadedtcprequesthandler import ThreadedTCPRequestHandler
+from worker.threadedtcprequesthandler import ThreadedTCPRequestHandler
 from socketserver import ThreadingTCPServer
 
 class Queue:
@@ -10,7 +10,7 @@ class Queue:
         self.server.queue = self
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         self.server_thread.daemon = True
-        self.messages = []
+        self.messages = list()
 
     def start_server(self):
         self.server_thread.start()
