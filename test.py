@@ -18,18 +18,30 @@
 # print(funct(25))
 # # print(fun(25))
 
-import json
-import random
 
-with open(".\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
-    data = json.load(file)
-output = dict()
-for i in data:
-    output[i] = {
-        "description": data[i],
-        "criticaly": random.choice(["critical", "higt", "low", "cosmetic"]),
-        "reason": "you trying programming",
-        "solve": "turn off computer"
-    }
-with open(".\\server\\db_working\\errors_list\\python312.json", "w", encoding="utf-8") as file:
-    json.dump(output, file, indent=4)
+# import json
+# import random
+
+# with open(".\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
+#     data = json.load(file)
+# output = dict()
+# for i in data:
+#     output[i] = {
+#         "description": data[i],
+#         "criticaly": random.choice(["critical", "higt", "low", "cosmetic"]),
+#         "reason": "you trying programming",
+#         "solve": "turn off computer"
+#     }
+# with open(".\\server\\db_working\\errors_list\\python312.json", "w", encoding="utf-8") as file:
+#     json.dump(output, file, indent=4)
+
+# from flask import render_template
+import jinja2
+
+templateLoader = jinja2.FileSystemLoader(searchpath="./server/db_working/sql_template")
+templateEnv = jinja2.Environment(loader=templateLoader)
+TEMPLATE_FILE = "project_DB_init.sql"
+template = templateEnv.get_template(TEMPLATE_FILE)
+outputText = template.render(project_name="superJam")
+print(outputText)
+
