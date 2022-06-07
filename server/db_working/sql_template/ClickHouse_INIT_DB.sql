@@ -1,8 +1,9 @@
 CREATE DATABASE IF NOT EXISTS BugHarvester ENGINE=Atomic;
 
 CREATE TABLE IF NOT EXISTS BugHarvester.Projects(
-    project_name String;
-    project_description String;
+    project_name String,
+    project_description String,
+    current_version String
 ) ENGINE=ReplacingMergeTree ORDER BY (project_name);
 
 -- CREATE TABLE IF NOT EXISTS BugHarvester.Reports(

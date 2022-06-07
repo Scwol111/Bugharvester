@@ -1,11 +1,13 @@
 from inspect import trace
 from itertools import count
+import os
 from bugHarvesterWebserver import app
 from flask import render_template, abort, redirect, request, send_from_directory ,send_file
 from os.path import isfile
 from datetime import datetime, timedelta
 from uuid import uuid4
 from collections import Counter
+from server.db_working.clickhouse import BugHarvesterClickhouseDB
 import random
 import json
 
@@ -82,7 +84,9 @@ def pageNotFound(e):
 
 @app.route('/main')
 def mainFunction():
-    prjct = generateProjectList()
+    sql = BugHarvesterClickhouseDB()
+    # prjct = generateProjectList()
+    prjct = sql.getProjectList()
     prjct.sort(key=sortStatus)
     return render_template("main.html", login="username", projects=prjct)
 
@@ -93,7 +97,10 @@ def contacFunction():
 # @app.route('/projects', defaults={'projectName': ''})
 @app.route('/projects/<projectName>')
 def projects(projectName: str):
-    err, cont, preparedErrors = generateErrorsList()
+    sql = BugHarvesterClickhouseDB()
+    projectInfo = sql.getProjectInfo(projectName)
+    # err, cont, preparedErrors = generateErrorsList()
+    err, cont, preparedErrors = sql.getErrorList(projectName)
     err.sort(key=lambda x: x[3], reverse=True)
     if (cont["errors"] > 0):
         recomendation = "Необходима новая версия с исправленными ошибками"
@@ -101,44 +108,56 @@ def projects(projectName: str):
         recomendation = "Неободимо исправить некоторые ошибки"
     else:
         recomendation = "С проектом все в порядке. Так держать!"
-    return render_template("projectTemplate.html", login="username", errors=err, project=generateProjectInfo(projectName), count=cont, recomendation=recomendation, preparedErrors=preparedErrors)
+    # project=generateProjectInfo(projectName)
+    return render_template("projectTemplate.html", login="username", errors=err, project=projectInfo, count=cont, recomendation=recomendation, preparedErrors=preparedErrors)
 
 @app.route('/projects/<projectName>/<errorType>')
 def errors(projectName: str, errorType: str):
-    err, trace = generateReportsList()
-    con = Counter(trace).most_common(1)[0][0]
-    with open("C:\\Users\\Nikita\\Desktop\\diplom\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
-        data = json.load(file)
+    sql = BugHarvesterClickhouseDB()
+    # err, trace = generateReportsList()
+    try:
+        err, trace = sql.getReportList()
+        con = Counter(trace).most_common(1)[0][0]
+        data = sql.getErrorTypeInfo(projectName, errorType)
+        prjct = sql.getProjectInfo(projectName)
+    except:
+        abort(404)
+    # with open("C:\\Users\\Nikita\\Desktop\\diplom\\server\\db_working\\errors_list\\python312.json", "r", encoding="utf-8") as file:
+    #     data = json.load(file)
     error = {
         'type': errorType,
-        "solve": data[errorType]["solve"],
-        "reason": data[errorType]["reason"]
+        "solve": data["solve"],
+        "reason": data["reason"]
     }
-    return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(projectName), errorList = err, error = error, mostCommonTraceback = con)
+    return render_template("projectErrorTemplate.html", login="username", project=prjct, errorList = err, error = error, mostCommonTraceback = con)
+    # return render_template("projectErrorTemplate.html", login="username", project=generateProjectInfo(projectName), errorList = err, error = error, mostCommonTraceback = con)
 
 @app.route('/projects/<projectName>/<errorType>/<reportId>/dump')
 def download(projectName: str, errorType: str, reportId: str):
-    return send_from_directory("C:\\Users\\Nikita\\Desktop\\diplom\\server\\bugHarvesterWebserver", "test_dump.txt", as_attachment=True)
+    folder = os.getenv("BUGHARVESTER_FOLDER") + "/".join(["dumps", projectName, errorType])
+    # return send_from_directory("C:\\Users\\Nikita\\Desktop\\diplom\\server\\bugHarvesterWebserver", "test_dump.txt", as_attachment=True)
+    return send_from_directory(folder, reportId + ".txt", as_attachment=True)
 
 @app.route('/api/<projectName>/addReport', methods=["POST"])
-def addReport():
-    pass
+def addReport(projectName: str):
+    sql = BugHarvesterClickhouseDB()
+    return sql.insert(projectName, request.json)
 
 @app.route('/api/errors', methods=['POST', 'DELETE', 'UPDATE'])
 def errorApiWork():
-    pass
+    sql = BugHarvesterClickhouseDB()
+    if request.method == "POST":
+        return sql.addErrorType(request.json)
+    elif request.method == "UPDATE":
+        return sql.updateErrorType(request.json)
+    return sql.deleteErrorType(request.json)
 
 # @app.route('/', defaults={'projectName': ''})
 # @app.route('/<projectName>')
 @app.route("/")
 def indexFunction():
-    prjct = sorted(generateProjectList(), key=sortStatus, reverse=True)
+    sql = BugHarvesterClickhouseDB()
+    prjct = sql.getProjectList()
+    prjct.sort(key=sortStatus, reverse=True)
+    # prjct = sorted(generateProjectList(), key=sortStatus, reverse=True)
     return render_template("index.html", login="username", projects=prjct)
-    # if (projectName == ""):
-    #     prjct = generateProjectList()
-    #     prjct.sort(key=sortStatus, reverse=True)
-    #     return render_template("index.html", login="username", projects=prjct)
-    # if (projectName.find(".html") != -1):
-    #     return redirect(projectName.replace(".html", "").lower())
-    # abort(404)
-
