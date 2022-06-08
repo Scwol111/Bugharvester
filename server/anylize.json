@@ -1,0 +1,10 @@
+{
+    "id": "",
+    "datetime": "12.36.21",
+    "projects":
+    {
+        "project_1": "ok",
+        "project_2": "warning",
+        "project_3": "error"
+    }
+}

@@ -1,6 +1,3 @@
-from inspect import trace
-from itertools import count
-import os
 from bugHarvesterWebserver import app
 from flask import render_template, abort, redirect, request, send_from_directory ,send_file
 from os.path import isfile
@@ -10,6 +7,7 @@ from collections import Counter
 from server.db_working.clickhouse import BugHarvesterClickhouseDB
 import random
 import json
+import os
 
 def sortStatus(x):
     status = ["/static/images/ok-64.png", "/static/images/warning-5-64.png", "/static/images/warning-64.png", "/static/images/ok-16.png", "/static/images/warning-5-16.png", "/static/images/warning-16.png"]

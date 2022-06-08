@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS {{ project_name }}.Reports(
     techInfo String,
     traceback String,
     path_to_dump String,
-    date Date
+    date Date,
+    analyze_id String,
+    analyze_time Date
 ) ENGINE=ReplacingMergeTree ORDER BY (id);
 
 CREATE TABLE IF NOT EXISTS {{ project_name }}.Errors(
@@ -19,8 +21,8 @@ CREATE TABLE IF NOT EXISTS {{ project_name }}.Errors(
     solve String
 ) ENGINE=ReplacingMergeTree ORDER BY (errorName);
 
-CREATE TABLE IF NOT EXISTS {{ project_name }}.Analyze(
-    analyze_id String,
-    analyzed_reports String,
-    analyze_time Date
-) ENGINE=ReplacingMergeTree ORDER BY (analyze_id, analyzed_reports);
+-- CREATE TABLE IF NOT EXISTS {{ project_name }}.Analyze(
+--     analyze_id String,
+--     analyzed_reports String,
+--     analyze_time Date
+-- ) ENGINE=ReplacingMergeTree ORDER BY (analyze_id, analyzed_reports);
